@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "รอทอร์เรนต์ (นาที)",
 	"settings.pickRuleEdit.waitUsenet": "รอ Usenet (นาที)",
 	"settings.pickRuleEdit.skipWait": "ข้ามการรอเมื่อดีพอแล้ว",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "ภาษา",
 	"settings.pickRuleEdit.languageDesc": "ภาษาพูดที่รีลีสมีได้",
 	"settings.pickRuleEdit.languages": "ภาษาที่รับ",

@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "토렌트 대기 시간 (분)",
 	"settings.pickRuleEdit.waitUsenet": "Usenet 대기 시간 (분)",
 	"settings.pickRuleEdit.skipWait": "충분한 품질이면 대기 건너뛰기",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "언어",
 	"settings.pickRuleEdit.languageDesc": "릴리스에 허용되는 음성 언어.",
 	"settings.pickRuleEdit.languages": "받을 언어",

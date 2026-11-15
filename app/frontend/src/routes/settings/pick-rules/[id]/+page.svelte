@@ -74,6 +74,7 @@
 
 	function start(f: Form) {
 		f.body.tags ??= [];
+		f.body.protocol.wait_unless ??= [];
 		form = f;
 		sizeStart = { ...f.size };
 		saved = JSON.stringify(f);
@@ -203,6 +204,15 @@
 		if (trait && !form.body[list].includes(trait)) form.body[list] = [...form.body[list], trait];
 	}
 
+	function addWaitUnless(trait: string) {
+		const list = form.body.protocol.wait_unless ?? [];
+		if (trait && !list.includes(trait)) form.body.protocol.wait_unless = [...list, trait];
+	}
+
+	function removeWaitUnless(trait: string) {
+		form.body.protocol.wait_unless = (form.body.protocol.wait_unless ?? []).filter((t) => t !== trait);
+	}
+
 	function toggleLanguage(code: string) {
 		const w = form.body.language.wanted;
 		form.body.language.wanted = w.includes(code) ? w.filter((l) => l !== code) : [...w, code];
@@ -226,6 +236,7 @@
 		prefer: 'pr-prefer',
 		wait_minutes_torrent: 'pr-wait-torrent',
 		wait_minutes_usenet: 'pr-wait-usenet',
+		wait_unless: 'pr-wait-unless-add',
 		language: 'pr-languages',
 		min_points: 'pr-min-points',
 		upgrade_min_points: 'pr-upgrade',
@@ -515,6 +526,18 @@
 				<input id="pr-skip-wait" type="checkbox" bind:checked={form.body.protocol.skip_wait_at_good_enough} />
 				<span><b>{t('settings.pickRuleEdit.skipWait')}</b></span>
 			</label>
+			<div class="field">
+				<span class="label" id="wait-unless-label">{t('settings.pickRuleEdit.waitUnless')}</span>
+				<div class="chips" role="group" aria-labelledby="wait-unless-label" data-testid="wait-unless">
+					{#each form.body.protocol.wait_unless ?? [] as w (w)}<Chip label={label(w)} onremove={() => removeWaitUnless(w)} />{:else}<span class="hint">{t('settings.pickRuleEdit.nothingYet')}</span>{/each}
+				</div>
+				<label class="sr-only" for="pr-wait-unless-add">{t('settings.pickRuleEdit.addWaitUnless')}</label>
+				<select id="pr-wait-unless-add" class="input" value="" onchange={(e) => (addWaitUnless(e.currentTarget.value), (e.currentTarget.value = ''))} {...bad('wait_unless')}>
+					<option value="">{t('settings.pickRuleEdit.addWaitUnless')}</option>
+					{@render options(own.filter((x) => !(form.body.protocol.wait_unless ?? []).includes(x)))}
+				</select>
+				{#if errors.wait_unless}<span class="field-error" id="pr-wait-unless-add-error" role="alert">{errors.wait_unless}</span>{/if}
+			</div>
 		</SettingsCard>
 
 		{#if !music}

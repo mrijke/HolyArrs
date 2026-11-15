@@ -111,7 +111,8 @@ func (c sideConfig) fold(b *mediafiles.PickRulesBody) {
 			prefer = "either"
 		}
 		b.Protocol = mediafiles.ProtocolRule{Prefer: prefer, WaitMinutesTorrent: waitOf(d["torrentDelay"]),
-			WaitMinutesUsenet: waitOf(d["usenetDelay"]), SkipWaitAtGoodEnough: flag(d["bypassIfHighestQuality"], false)}
+			WaitMinutesUsenet: waitOf(d["usenetDelay"]), SkipWaitAtGoodEnough: flag(d["bypassIfHighestQuality"], false),
+			WaitUnless: b.Protocol.WaitUnless}
 	}
 	if c.sizes != nil {
 		limits := map[string]mediafiles.SizeLimit{}

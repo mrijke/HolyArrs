@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Chờ torrent (phút)",
 	"settings.pickRuleEdit.waitUsenet": "Chờ Usenet (phút)",
 	"settings.pickRuleEdit.skipWait": "Bỏ qua chờ khi đã đủ tốt",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Ngôn ngữ",
 	"settings.pickRuleEdit.languageDesc": "Những ngôn ngữ thoại nào một Bản phát hành được có.",
 	"settings.pickRuleEdit.languages": "Ngôn ngữ cần lấy",

@@ -64,6 +64,8 @@
 "settings.pickRuleEdit.waitTorrent": "トレントの待ち時間(分)",
 "settings.pickRuleEdit.waitUsenet": "Usenet の待ち時間(分)",
 "settings.pickRuleEdit.skipWait": "十分な品質なら待たない",
+"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 "settings.pickRuleEdit.language": "言語",
 "settings.pickRuleEdit.languageDesc": "リリースに許可する音声の言語です。",
 "settings.pickRuleEdit.languages": "採用する言語",

@@ -702,7 +702,7 @@ func (m *Mover) undoOne(ctx context.Context, x madeRow, by domain.Actor) (string
 		} else if err != nil {
 			return ResFailed, err.Error()
 		}
-		if cur.Body.Protocol != moved {
+		if !cur.Body.Protocol.Same(moved) {
 			return ResKept, keptChanged
 		}
 		body := cur.Body

@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "انتظار برای تورنت‌ها (دقیقه)",
 	"settings.pickRuleEdit.waitUsenet": "انتظار برای Usenet (دقیقه)",
 	"settings.pickRuleEdit.skipWait": "وقتی کیفیت کافی شد انتظار را رد کن",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "زبان",
 	"settings.pickRuleEdit.languageDesc": "ریلیز چه زبان‌های گفتاری می‌تواند داشته باشد.",
 	"settings.pickRuleEdit.languages": "زبان‌هایی که پذیرفته می‌شوند",

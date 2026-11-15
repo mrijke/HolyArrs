@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Ждать торренты (минут)",
 	"settings.pickRuleEdit.waitUsenet": "Ждать Usenet (минут)",
 	"settings.pickRuleEdit.skipWait": "Не ждать, если уже достаточно",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Язык",
 	"settings.pickRuleEdit.languageDesc": "На каких языках может звучать релиз.",
 	"settings.pickRuleEdit.languages": "Какие языки брать",

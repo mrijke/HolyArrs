@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "டொரண்டுகளுக்குக் காத்திருப்பு (நிமிடங்கள்)",
 	"settings.pickRuleEdit.waitUsenet": "Usenet க்குக் காத்திருப்பு (நிமிடங்கள்)",
 	"settings.pickRuleEdit.skipWait": "போதுமான தரம் வந்ததும் காத்திருப்பைத் தவிர்",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "மொழி",
 	"settings.pickRuleEdit.languageDesc": "ஒரு வெளியீடு கொண்டிருக்கக்கூடிய பேச்சு மொழிகள்.",
 	"settings.pickRuleEdit.languages": "எடுக்க வேண்டிய மொழிகள்",

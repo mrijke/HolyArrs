@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Czekaj na torrenty (minuty)",
 	"settings.pickRuleEdit.waitUsenet": "Czekaj na Usenet (minuty)",
 	"settings.pickRuleEdit.skipWait": "Pomiń czekanie, gdy jest wystarczająco dobrze",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Język",
 	"settings.pickRuleEdit.languageDesc": "Jakie języki mówione może mieć release.",
 	"settings.pickRuleEdit.languages": "Języki do wzięcia",

@@ -89,7 +89,7 @@ describe('blankBody', () => {
 		expect(b.steps.filter((s) => s.allowed).map((s) => s.quality)).toEqual(['720p_tv', '720p_web', '720p_bluray', '1080p_tv', '1080p_web', '1080p_bluray']);
 		expect(b.good_enough_at).toBe('1080p_web');
 		expect(b.never).toEqual(['sample', 'executable', 'password_protected', 'disc_image']);
-		expect(b.protocol).toEqual({ prefer: 'either', wait_minutes_torrent: 0, wait_minutes_usenet: 0, skip_wait_at_good_enough: false });
+		expect(b.protocol).toEqual({ prefer: 'either', wait_minutes_torrent: 0, wait_minutes_usenet: 0, skip_wait_at_good_enough: false, wait_unless: [] });
 		expect(b.order).toBe('quality_then_points');
 		expect(b.proper_policy.mode).toBe('take_any');
 		expect(checkBody('New rules', ['movie'], b)).toEqual({});
@@ -256,6 +256,9 @@ describe('tidyBody', () => {
 		expect(t.upgrade_min_points).toBe(12);
 		expect(t.protocol.wait_minutes_torrent).toBe(0);
 		expect(t.protocol.wait_minutes_usenet).toBe(30);
+		expect('wait_unless' in t.protocol).toBe(false);
+		b.protocol.wait_unless = ['own:1', 'hevc'];
+		expect(tidyBody(b).protocol.wait_unless).toEqual(['own:1', 'hevc']);
 		expect('max_age_days' in t.proper_policy).toBe(false);
 		b.proper_policy.max_age_days = 14;
 		expect(tidyBody(b).proper_policy.max_age_days).toBe(14);

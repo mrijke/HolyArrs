@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Tunggu torrent (minit)",
 	"settings.pickRuleEdit.waitUsenet": "Tunggu Usenet (minit)",
 	"settings.pickRuleEdit.skipWait": "Langkau menunggu apabila sudah cukup baik",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Bahasa",
 	"settings.pickRuleEdit.languageDesc": "Bahasa pertuturan yang boleh ada pada Keluaran.",
 	"settings.pickRuleEdit.languages": "Bahasa untuk diambil",

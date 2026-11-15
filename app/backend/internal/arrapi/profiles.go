@@ -454,6 +454,7 @@ func (h *handler) saveProfile(w http.ResponseWriter, r *http.Request, id int64) 
 	var saved mediafiles.PickRules
 	if id != 0 {
 		body.Tags = old.Body.Tags
+		body.Protocol.WaitUnless = old.Body.Protocol.WaitUnless
 		name := old.Name
 		if oldRow.Name != in.Name {
 			name, err = h.freeRulesName(ctx, in.Name, id)

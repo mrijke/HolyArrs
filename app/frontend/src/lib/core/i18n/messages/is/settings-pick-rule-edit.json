@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Bið eftir torrentum (mínútur)",
 	"settings.pickRuleEdit.waitUsenet": "Bið eftir Usenet (mínútur)",
 	"settings.pickRuleEdit.skipWait": "Sleppa biðinni þegar nógu gott",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Tungumál",
 	"settings.pickRuleEdit.languageDesc": "Hvaða töluðu tungumál útgáfa má hafa.",
 	"settings.pickRuleEdit.languages": "Tungumál til að taka",

@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "الانتظار للتورنت (دقيقة)",
 	"settings.pickRuleEdit.waitUsenet": "الانتظار لـ Usenet (دقيقة)",
 	"settings.pickRuleEdit.skipWait": "تخطَّ الانتظار عند بلوغ جودة كافية",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "اللغة",
 	"settings.pickRuleEdit.languageDesc": "اللغات المنطوقة التي يجوز أن يتضمنها الإصدار.",
 	"settings.pickRuleEdit.languages": "اللغات المقبولة",

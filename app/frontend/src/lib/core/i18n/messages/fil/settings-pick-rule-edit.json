@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Maghintay para sa mga torrent (minuto)",
 	"settings.pickRuleEdit.waitUsenet": "Maghintay para sa Usenet (minuto)",
 	"settings.pickRuleEdit.skipWait": "Laktawan ang paghihintay kapag sapat na",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Wika",
 	"settings.pickRuleEdit.languageDesc": "Aling mga wikang sinasalita ang puwedeng mayroon ang Release.",
 	"settings.pickRuleEdit.languages": "Mga wikang kukunin",

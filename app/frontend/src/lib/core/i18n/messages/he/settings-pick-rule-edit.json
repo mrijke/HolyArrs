@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "המתנה לטורנטים (דקות)",
 	"settings.pickRuleEdit.waitUsenet": "המתנה ל־Usenet (דקות)",
 	"settings.pickRuleEdit.skipWait": "דילוג על ההמתנה כשמספיק טוב",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "שפה",
 	"settings.pickRuleEdit.languageDesc": "אילו שפות מדוברות ריליז רשאי להכיל.",
 	"settings.pickRuleEdit.languages": "שפות לקחת",

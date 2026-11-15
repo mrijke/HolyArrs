@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Torrent için bekleme (dakika)",
 	"settings.pickRuleEdit.waitUsenet": "Usenet için bekleme (dakika)",
 	"settings.pickRuleEdit.skipWait": "Yeterince iyi olunca beklemeyi atla",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Dil",
 	"settings.pickRuleEdit.languageDesc": "Bir sürüm adayında hangi konuşma dilleri olabilir.",
 	"settings.pickRuleEdit.languages": "Alınacak diller",

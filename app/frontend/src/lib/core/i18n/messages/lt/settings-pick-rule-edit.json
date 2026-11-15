@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Laukti torentų (minučių)",
 	"settings.pickRuleEdit.waitUsenet": "Laukti Usenet (minučių)",
 	"settings.pickRuleEdit.skipWait": "Praleisti laukimą, kai jau pakankamai gera",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Kalba",
 	"settings.pickRuleEdit.languageDesc": "Kokiomis šnekamosiomis kalbomis gali būti Leidimas.",
 	"settings.pickRuleEdit.languages": "Kalbos, kurias imti",

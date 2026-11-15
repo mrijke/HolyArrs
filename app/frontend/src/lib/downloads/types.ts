@@ -28,7 +28,7 @@ export interface PickRulesBody {
 	good_enough_points?: number;
 	/** By step; "*" is every step. */
 	size_limits: Record<string, PickRulesSize>;
-	protocol: { prefer: 'torrent' | 'usenet' | 'either'; wait_minutes_torrent: number; wait_minutes_usenet: number; skip_wait_at_good_enough: boolean };
+	protocol: { prefer: 'torrent' | 'usenet' | 'either'; wait_minutes_torrent: number; wait_minutes_usenet: number; skip_wait_at_good_enough: boolean; wait_unless?: string[] };
 	language: { wanted: string[]; original_ok: boolean };
 	order: 'quality_then_points' | 'points_then_quality';
 	upgrade_min_points: number;

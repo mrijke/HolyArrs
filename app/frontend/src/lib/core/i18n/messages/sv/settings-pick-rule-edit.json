@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Vänta på torrenter (minuter)",
 	"settings.pickRuleEdit.waitUsenet": "Vänta på Usenet (minuter)",
 	"settings.pickRuleEdit.skipWait": "Hoppa över väntan när det är tillräckligt bra",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Språk",
 	"settings.pickRuleEdit.languageDesc": "Vilka talade språk en release får ha.",
 	"settings.pickRuleEdit.languages": "Språk att ta",

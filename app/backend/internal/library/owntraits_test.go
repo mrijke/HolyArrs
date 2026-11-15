@@ -77,6 +77,7 @@ func TestOwnTraitCRUD(t *testing.T) {
 	// A Pick rule that uses the trait loses it on delete; one that does not is left alone.
 	body := mediafiles.GoodEveryday()
 	body.Never = append(body.Never, mediafiles.OwnTraitKey(a.ID))
+	body.Protocol.WaitUnless = []string{mediafiles.OwnTraitKey(a.ID)}
 	used, err := CreatePickRules(ctx, st, PickRulesInput{Name: "Uses own", Kinds: []string{"movie"}, Body: body}, domain.System)
 	if err != nil {
 		t.Fatal(err)
@@ -97,6 +98,9 @@ func TestOwnTraitCRUD(t *testing.T) {
 			t.Fatalf("the deleted trait is still in the rule's never list: %v", after.Body.Never)
 		}
 	}
+	if len(after.Body.Protocol.WaitUnless) != 0 {
+		t.Fatalf("the deleted trait is still in the rule's wait-unless list: %v", after.Body.Protocol.WaitUnless)
+	}
 	if after.Revision != used.Revision+1 {
 		t.Fatalf("revision %d, want %d", after.Revision, used.Revision+1)
 	}
@@ -113,5 +117,10 @@ func TestOwnTraitCRUD(t *testing.T) {
 	body.Never = []string{mediafiles.OwnTraitKey(a.ID)}
 	if _, err := CreatePickRules(ctx, st, PickRulesInput{Name: "Stale", Kinds: []string{"movie"}, Body: body}, domain.System); err == nil {
 		t.Fatal("a Pick rule naming a deleted own trait was accepted")
+	}
+	body.Never = nil
+	body.Protocol.WaitUnless = []string{mediafiles.OwnTraitKey(a.ID)}
+	if _, err := CreatePickRules(ctx, st, PickRulesInput{Name: "Stale wait", Kinds: []string{"movie"}, Body: body}, domain.System); err == nil {
+		t.Fatal("a Pick rule naming a deleted own trait in wait_unless was accepted")
 	}
 }

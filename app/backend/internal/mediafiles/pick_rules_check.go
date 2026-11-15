@@ -176,6 +176,16 @@ func CheckPickRules(name string, kinds []string, b PickRulesBody) error {
 	if b.Protocol.WaitMinutesUsenet < 0 || b.Protocol.WaitMinutesUsenet > pickMaxWait {
 		return fieldErr("body.protocol.wait_minutes_usenet", "The Usenet wait must be from 0 to 10080 minutes.")
 	}
+	if len(b.Protocol.WaitUnless) > pickMaxNested {
+		return fieldErr("body.protocol.wait_unless", "List at most 64 traits.")
+	}
+	seenUnless := map[string]bool{}
+	for _, trait := range b.Protocol.WaitUnless {
+		if !known(trait) || seenUnless[trait] {
+			return fieldErr("body.protocol.wait_unless", "Unknown or repeated trait %q.", trait)
+		}
+		seenUnless[trait] = true
+	}
 	if len(b.Language.Wanted) > 32 {
 		return fieldErr("body.language.wanted", "List at most 32 languages.")
 	}

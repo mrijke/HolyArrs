@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Odota torrentteja (minuuttia)",
 	"settings.pickRuleEdit.waitUsenet": "Odota Usenetiä (minuuttia)",
 	"settings.pickRuleEdit.skipWait": "Ohita odotus, kun riittävän hyvä",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Kieli",
 	"settings.pickRuleEdit.languageDesc": "Mitä puhuttuja kieliä julkaisussa saa olla.",
 	"settings.pickRuleEdit.languages": "Otettavat kielet",

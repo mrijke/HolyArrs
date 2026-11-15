@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Așteaptă pentru torente (minute)",
 	"settings.pickRuleEdit.waitUsenet": "Așteaptă pentru Usenet (minute)",
 	"settings.pickRuleEdit.skipWait": "Sari peste așteptare când e suficient",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Limbă",
 	"settings.pickRuleEdit.languageDesc": "Ce limbi vorbite poate avea o Lansare.",
 	"settings.pickRuleEdit.languages": "Limbi de acceptat",

@@ -27,6 +27,7 @@ func TestImportPickRulesAgain(t *testing.T) {
 	}
 	b := first.PickRules.Body
 	b.Tags = []string{"4k"}
+	b.Protocol.WaitUnless = []string{"hevc"}
 	if _, err := UpdatePickRules(ctx, st, first.PickRules.ID, PickRulesInput{Name: first.PickRules.Name, Kinds: first.PickRules.Kinds, Body: b}, domain.System); err != nil {
 		t.Fatal(err)
 	}
@@ -37,6 +38,9 @@ func TestImportPickRulesAgain(t *testing.T) {
 	}
 	if tags := again.PickRules.Body.Tags; len(tags) != 1 || tags[0] != "4k" || again.PickRules.Body.Traits[0].Points != 80 {
 		t.Fatalf("again body %+v", again.PickRules.Body)
+	}
+	if list := again.PickRules.Body.Protocol.WaitUnless; len(list) != 1 || list[0] != "hevc" {
+		t.Fatalf("a second import dropped the wait-unless list: %v", list)
 	}
 	ts, _ := database.Select[mediafiles.OwnTrait](ctx, st.Read(), "own_traits", "source = 'import'")
 	if len(ts) != 1 {

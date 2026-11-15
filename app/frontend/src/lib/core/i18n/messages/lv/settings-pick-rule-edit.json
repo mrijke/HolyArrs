@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Gaidīt torentus (minūtes)",
 	"settings.pickRuleEdit.waitUsenet": "Gaidīt Usenet (minūtes)",
 	"settings.pickRuleEdit.skipWait": "Izlaist gaidīšanu, kad pietiekami labs",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Valoda",
 	"settings.pickRuleEdit.languageDesc": "Kādās runātajās valodās Izlaidums drīkst būt.",
 	"settings.pickRuleEdit.languages": "Valodas, ko ņemt",

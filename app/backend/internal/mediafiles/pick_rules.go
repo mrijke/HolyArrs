@@ -1,5 +1,7 @@
 package mediafiles
 
+import "slices"
+
 // Ladder steps, low to high (pick-rules.md section 5).
 var Ladder = []string{
 	"cam", "telesync", "sd_tv", "sd_dvd",
@@ -34,6 +36,16 @@ type ProtocolRule struct {
 	WaitMinutesTorrent   int    `json:"wait_minutes_torrent"`
 	WaitMinutesUsenet    int    `json:"wait_minutes_usenet"`
 	SkipWaitAtGoodEnough bool   `json:"skip_wait_at_good_enough"`
+	// WaitUnless lists traits; a Release that fits one of them is not held by
+	// the wait, so what the wait is waiting for is taken as soon as it comes.
+	WaitUnless []string `json:"wait_unless,omitempty"`
+}
+
+// Same says whether two protocol rules say the same.
+func (p ProtocolRule) Same(o ProtocolRule) bool {
+	return p.Prefer == o.Prefer && p.WaitMinutesTorrent == o.WaitMinutesTorrent &&
+		p.WaitMinutesUsenet == o.WaitMinutesUsenet && p.SkipWaitAtGoodEnough == o.SkipWaitAtGoodEnough &&
+		slices.Equal(p.WaitUnless, o.WaitUnless)
 }
 
 // LanguageRule says which languages are wanted.

@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Чекање за торенте (минута)",
 	"settings.pickRuleEdit.waitUsenet": "Чекање за Usenet (минута)",
 	"settings.pickRuleEdit.skipWait": "Прескочи чекање кад је довољно добро",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Језик",
 	"settings.pickRuleEdit.languageDesc": "Које говорне језике Издање сме да има.",
 	"settings.pickRuleEdit.languages": "Језици које треба узети",

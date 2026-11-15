@@ -198,7 +198,7 @@ export function blankBody(kind: RulesKind): PickRulesBody {
 		min_points: 0,
 		// 0.5 to 6 GB per hour of video; album sizes vary too much for one limit.
 		size_limits: music ? {} : { '*': { min: Math.floor(gb / 2 / 60), max: Math.floor((6 * gb) / 60), per_minute: true } },
-		protocol: { prefer: 'either', wait_minutes_torrent: 0, wait_minutes_usenet: 0, skip_wait_at_good_enough: false },
+		protocol: { prefer: 'either', wait_minutes_torrent: 0, wait_minutes_usenet: 0, skip_wait_at_good_enough: false, wait_unless: [] },
 		language: { wanted: [], original_ok: true },
 		order: 'quality_then_points',
 		upgrade_min_points: 10,
@@ -298,6 +298,7 @@ export function tidyBody(body: PickRulesBody): PickRulesBody {
 	else b.good_enough_points = whole(gep);
 	b.protocol.wait_minutes_torrent = whole(b.protocol.wait_minutes_torrent);
 	b.protocol.wait_minutes_usenet = whole(b.protocol.wait_minutes_usenet);
+	if (!b.protocol.wait_unless?.length) delete b.protocol.wait_unless;
 	if (!b.tags?.length) delete b.tags;
 	const days = whole(b.proper_policy.max_age_days);
 	if (days) b.proper_policy.max_age_days = days;
@@ -339,6 +340,7 @@ const nested: Record<string, string> = {
 	'protocol.wait_minutes_torrent': 'wait_minutes_torrent',
 	'protocol.wait_minutes_usenet': 'wait_minutes_usenet',
 	'protocol.skip_wait_at_good_enough': 'prefer',
+	'protocol.wait_unless': 'wait_unless',
 	'proper_policy.max_age_days': 'max_age_days'
 };
 

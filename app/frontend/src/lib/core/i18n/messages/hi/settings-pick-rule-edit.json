@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "टोरेंट के लिए इंतज़ार (मिनट)",
 	"settings.pickRuleEdit.waitUsenet": "Usenet के लिए इंतज़ार (मिनट)",
 	"settings.pickRuleEdit.skipWait": "काफ़ी अच्छा मिलते ही इंतज़ार छोड़ें",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "भाषा",
 	"settings.pickRuleEdit.languageDesc": "रिलीज़ में कौन-सी बोली जाने वाली भाषाएं हो सकती हैं।",
 	"settings.pickRuleEdit.languages": "ली जाने वाली भाषाएं",

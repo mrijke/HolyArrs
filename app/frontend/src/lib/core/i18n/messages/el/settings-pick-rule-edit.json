@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Αναμονή για torrents (λεπτά)",
 	"settings.pickRuleEdit.waitUsenet": "Αναμονή για Usenet (λεπτά)",
 	"settings.pickRuleEdit.skipWait": "Παράλειψη αναμονής μόλις είναι αρκετά καλό",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Γλώσσα",
 	"settings.pickRuleEdit.languageDesc": "Ποιες ομιλούμενες γλώσσες μπορεί να έχει μια κυκλοφορία.",
 	"settings.pickRuleEdit.languages": "Γλώσσες που γίνονται δεκτές",

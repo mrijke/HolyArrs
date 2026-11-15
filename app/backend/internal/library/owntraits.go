@@ -138,11 +138,12 @@ func DeleteOwnTrait(ctx context.Context, st *database.Store, id int64, by domain
 		}
 		for _, p := range ps {
 			b := p.Body
-			n := len(b.Traits) + len(b.MustHave) + len(b.Never)
+			n := len(b.Traits) + len(b.MustHave) + len(b.Never) + len(b.Protocol.WaitUnless)
 			b.Traits = slices.DeleteFunc(b.Traits, func(tp mediafiles.TraitPoints) bool { return tp.Trait == key })
 			b.MustHave = slices.DeleteFunc(b.MustHave, func(s string) bool { return s == key })
 			b.Never = slices.DeleteFunc(b.Never, func(s string) bool { return s == key })
-			if len(b.Traits)+len(b.MustHave)+len(b.Never) == n {
+			b.Protocol.WaitUnless = slices.DeleteFunc(b.Protocol.WaitUnless, func(s string) bool { return s == key })
+			if len(b.Traits)+len(b.MustHave)+len(b.Never)+len(b.Protocol.WaitUnless) == n {
 				continue
 			}
 			p.Body = b
@@ -172,7 +173,7 @@ func checkOwnKeys(tx *sql.Tx, b mediafiles.PickRulesBody) error {
 	for _, l := range []struct {
 		field string
 		keys  []string
-	}{{"body.traits", traits}, {"body.must_have", b.MustHave}, {"body.never", b.Never}} {
+	}{{"body.traits", traits}, {"body.must_have", b.MustHave}, {"body.never", b.Never}, {"body.protocol.wait_unless", b.Protocol.WaitUnless}} {
 		for _, k := range l.keys {
 			id, ok := mediafiles.OwnTraitID(k)
 			if !ok {

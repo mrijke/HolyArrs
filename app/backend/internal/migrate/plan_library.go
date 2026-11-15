@@ -269,7 +269,7 @@ func (b *builder) waitRules(s *Snapshot) {
 		}
 		// Pick rules made from this app's profiles take its default wait as is.
 		for _, rp := range b.snapRules {
-			rp.Body.Protocol = mediafiles.ProtocolRule{Prefer: w.Prefer, WaitMinutesUsenet: w.WaitUsenet, WaitMinutesTorrent: w.WaitTorrent, SkipWaitAtGoodEnough: w.SkipAtGoodEnough}
+			rp.Body.Protocol = mediafiles.ProtocolRule{Prefer: w.Prefer, WaitMinutesUsenet: w.WaitUsenet, WaitMinutesTorrent: w.WaitTorrent, SkipWaitAtGoodEnough: w.SkipAtGoodEnough, WaitUnless: rp.Body.Protocol.WaitUnless}
 		}
 		if len(presets) == 0 {
 			if len(b.snapRules) > 0 {

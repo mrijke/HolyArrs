@@ -507,6 +507,7 @@ func TestPickRuleWithOwnTraitIsRefused(t *testing.T) {
 		},
 		func(b *mediafiles.PickRulesBody) { b.MustHave = []string{"own:3"} },
 		func(b *mediafiles.PickRulesBody) { b.Never = append(slices.Clone(b.Never), "own:3") },
+		func(b *mediafiles.PickRulesBody) { b.Protocol.WaitUnless = []string{"own:3"} },
 	} {
 		bad := p.PickRules[0]
 		edit(&bad.Rules)

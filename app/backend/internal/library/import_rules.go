@@ -102,6 +102,7 @@ func ImportPickRules(ctx context.Context, st *database.Store, in ImportRulesInpu
 	if len(prev) > 0 {
 		p := prev[0]
 		b.Tags = p.Body.Tags
+		b.Protocol.WaitUnless = p.Body.Protocol.WaitUnless
 		res.PickRules, err = UpdatePickRules(ctx, st, p.ID, PickRulesInput{Name: p.Name, Kinds: p.Kinds, Body: b}, by)
 		return res, err
 	}

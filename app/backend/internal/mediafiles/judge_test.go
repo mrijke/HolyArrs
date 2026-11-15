@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/HolyArrs/holyarrs/app/backend/internal/core/database"
 	"github.com/HolyArrs/holyarrs/app/backend/internal/core/releasename"
 )
 
@@ -343,6 +344,51 @@ func TestProtocolWaitHolds(t *testing.T) {
 	set.HandSearch = true
 	if v := Judge(rel, set, rules); v.Outcome != "chosen" {
 		t.Fatalf("a hand search skips the wait: %s", v.Outcome)
+	}
+}
+
+func TestProtocolWaitUnlessSkipsTheHold(t *testing.T) {
+	rules := GoodEveryday()
+	rules.Protocol.WaitMinutesUsenet = 60
+	rules.Protocol.WaitUnless = []string{"web_dl"}
+	rel := release(row{Name: "Saltwater.Choir.2022.1080p.WEB-DL.H.264-QUILL"})
+	rel.Protocol = "usenet"
+	rel.PublishedAt = time.Now().Add(-10 * time.Minute)
+	v := Judge(rel, setFor(t, rel, nil), rules)
+	if v.Outcome != "chosen" || v.HoldUntil != nil {
+		t.Fatalf("a Release that fits a wait-unless trait is not held: %s\n%s", v.Outcome, dump(v))
+	}
+	if !slices.Contains(codes(v, "pass"), "wait.skipped") {
+		t.Fatalf("the wait should say it was skipped: %v", codes(v, "pass"))
+	}
+	rules.Protocol.WaitUnless = nil
+	if v := Judge(rel, setFor(t, rel, nil), rules); v.Outcome != "held" {
+		t.Fatalf("without the trait the wait holds: %s", v.Outcome)
+	}
+
+	// An own trait skips it too, which is how a person waits for a kind of
+	// Release and not for a protocol.
+	SetOwnTraits([]OwnTrait{{Meta: database.Meta{ID: 1}, Name: "Scene", Match: "group", Terms: []string{"QUILL"}}})
+	t.Cleanup(func() { SetOwnTraits(nil) })
+	rules.Protocol.WaitUnless = []string{OwnTraitKey(1)}
+	if v := Judge(rel, setFor(t, rel, nil), rules); v.Outcome != "chosen" {
+		t.Fatalf("a Release whose group fits the own trait is not held: %s\n%s", v.Outcome, dump(v))
+	}
+	other := release(row{Name: "Saltwater.Choir.2022.1080p.WEB-DL.H.264-TINCAN"})
+	other.Protocol = "usenet"
+	other.PublishedAt = time.Now().Add(-10 * time.Minute)
+	if v := Judge(other, setFor(t, other, nil), rules); v.Outcome != "held" {
+		t.Fatalf("a Release whose group fits nothing is still held: %s", v.Outcome)
+	}
+
+	// A size trait reads the whole Release's size, which only the judge knows.
+	SetOwnTraits([]OwnTrait{{Meta: database.Meta{ID: 2}, Name: "Big", Match: "size", Terms: []string{"1-20"}}})
+	rules.Protocol.WaitUnless = []string{OwnTraitKey(2)}
+	big := release(row{Name: "Saltwater.Choir.2022.1080p.WEB-DL.H.264-TINCAN", Size: 4 << 30})
+	big.Protocol = "usenet"
+	big.PublishedAt = time.Now().Add(-10 * time.Minute)
+	if v := Judge(big, setFor(t, big, nil), rules); v.Outcome != "chosen" {
+		t.Fatalf("a size trait skips the wait: %s\n%s", v.Outcome, dump(v))
 	}
 }
 

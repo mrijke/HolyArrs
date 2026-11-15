@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Очікування для торентів (хвилин)",
 	"settings.pickRuleEdit.waitUsenet": "Очікування для Usenet (хвилин)",
 	"settings.pickRuleEdit.skipWait": "Пропускати очікування, коли вже достатньо добре",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Мова",
 	"settings.pickRuleEdit.languageDesc": "Які розмовні мови може мати реліз.",
 	"settings.pickRuleEdit.languages": "Мови, які брати",

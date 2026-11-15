@@ -203,6 +203,17 @@ func MatchTitle(p releasename.Result, lib []TitleRef) Match {
 // safetyTraits are checked by the safety step, so the never step leaves them out.
 var safetyTraits = map[string]bool{"sample": true, "executable": true, "password_protected": true, "disc_image": true}
 
+// waitUnless says whether a Release fits one of the traits that skip the
+// protocol wait, and says which one.
+func waitUnless(traits []string, p releasename.Result) (bool, string) {
+	for _, t := range traits {
+		if ok, why := traitMatches(t, p); ok {
+			return true, why
+		}
+	}
+	return false, ""
+}
+
 // traitMatches says whether a named Trait matches. Points Traits need a sure
 // field (a "likely" web_dl from a bare "WEB" earns nothing).
 func traitMatches(trait string, p releasename.Result) (bool, string) {
@@ -493,11 +504,14 @@ func Judge(rel ReleaseFacts, set SlotSet, rules PickRulesBody) Verdict {
 		wait = rules.Protocol.WaitMinutesUsenet
 	}
 	until := rel.PublishedAt.Add(time.Duration(wait) * time.Minute)
+	fits, fitWhy := waitUnless(rules.Protocol.WaitUnless, p)
 	switch {
 	case wait == 0:
 		v.add("wait", "none", "pass", "no wait for "+rel.Protocol, 0)
 	case set.HandSearch:
 		v.add("wait", "skipped", "pass", "wait skipped: a person searched for this", 0)
+	case fits:
+		v.add("wait", "skipped", "pass", "wait skipped: "+fitWhy, 0)
 	case ge && rules.Protocol.SkipWaitAtGoodEnough:
 		v.add("wait", "skipped", "pass", "wait skipped: good enough", 0)
 	case time.Now().Before(until):

@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "Várakozás torrentekre (perc)",
 	"settings.pickRuleEdit.waitUsenet": "Várakozás Usenetre (perc)",
 	"settings.pickRuleEdit.skipWait": "A várakozás kihagyása, ha elég jó",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "Nyelv",
 	"settings.pickRuleEdit.languageDesc": "Mely beszélt nyelvek lehetnek egy release-ben.",
 	"settings.pickRuleEdit.languages": "Elfogadott nyelvek",

@@ -64,6 +64,8 @@
 	"settings.pickRuleEdit.waitTorrent": "種子的等待時間（分鐘）",
 	"settings.pickRuleEdit.waitUsenet": "Usenet 的等待時間（分鐘）",
 	"settings.pickRuleEdit.skipWait": "達標後跳過等待",
+	"settings.pickRuleEdit.waitUnless": "Skip the wait for",
+	"settings.pickRuleEdit.addWaitUnless": "Add a trait to skip the wait for",
 	"settings.pickRuleEdit.language": "語言",
 	"settings.pickRuleEdit.languageDesc": "資源可以包含哪些語音語言。",
 	"settings.pickRuleEdit.languages": "接受的語言",

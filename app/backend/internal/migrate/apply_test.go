@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"os"
 	"path/filepath"
+	"slices"
 	"strconv"
 	"strings"
 	"testing"
@@ -487,18 +488,18 @@ func TestMoveDefaultWait(t *testing.T) {
 		t.Fatalf("dry run %+v", got)
 	}
 	id, w := l.readWait(t, "4K")
-	if w != seededWait {
+	if !w.Same(seededWait) {
 		t.Fatalf("the dry run changed the wait: %+v", w)
 	}
 	mv := l.move(t, Choices{})
 	if got := lineOf(t, mv.Report, key); got.Result != ResChanged {
 		t.Fatalf("move %+v", got)
 	}
-	if _, w = l.readWait(t, "4K"); w != moved {
+	if _, w = l.readWait(t, "4K"); !w.Same(moved) {
 		t.Fatalf("wait after the move %+v", w)
 	}
 	// The other ready-made rules keep theirs.
-	if _, w = l.readWait(t, "Standard"); w != seededWait {
+	if _, w = l.readWait(t, "Standard"); !w.Same(seededWait) {
 		t.Fatalf("Standard changed %+v", w)
 	}
 	// Moving again changes nothing.
@@ -509,8 +510,33 @@ func TestMoveDefaultWait(t *testing.T) {
 	if u := l.undo(t, mv.ID); u.State != "undone" || lineOf(t, u.Report, key).Result != ResRemoved {
 		t.Fatalf("undo %+v", u)
 	}
-	if _, w = l.readWait(t, "4K"); w != seededWait {
+	if _, w = l.readWait(t, "4K"); !w.Same(seededWait) {
 		t.Fatalf("wait after undo %+v", w)
+	}
+
+	// A list of what not to hold is not a wait of its own: the old app's delay
+	// still comes, and the list stays.
+	l = newMoveLabWith(t, wait)
+	id, _ = l.readWait(t, "4K")
+	withList := seededWait
+	withList.WaitUnless = []string{"hevc"}
+	l.setWait(t, id, withList)
+	mv = l.move(t, Choices{})
+	if got := lineOf(t, mv.Report, key); got.Result != ResChanged {
+		t.Fatalf("list only %+v", got)
+	}
+	if _, w = l.readWait(t, "4K"); w.Prefer != "usenet" || !slices.Equal(w.WaitUnless, []string{"hevc"}) {
+		t.Fatalf("wait after a move with a list %+v", w)
+	}
+
+	// With the old app's waits and a list, the rule already waits this way.
+	l = newMoveLabWith(t, wait)
+	id, _ = l.readWait(t, "4K")
+	sameWaits := moved
+	sameWaits.WaitUnless = []string{"hevc"}
+	l.setWait(t, id, sameWaits)
+	if got := lineOf(t, l.move(t, Choices{}).Report, key); got.Result != ResAlready {
+		t.Fatalf("a list with the old waits %+v", got)
 	}
 
 	// Changed since the move: undo keeps the person's wait.
@@ -522,7 +548,7 @@ func TestMoveDefaultWait(t *testing.T) {
 	if u := l.undo(t, mv.ID); lineOf(t, u.Report, key).Result != ResKept || lineOf(t, u.Report, key).Detail != keptChanged {
 		t.Fatalf("undo after a change %+v", lineOf(t, u.Report, key))
 	}
-	if _, w = l.readWait(t, "4K"); w != mine {
+	if _, w = l.readWait(t, "4K"); !w.Same(mine) {
 		t.Fatalf("undo changed the person's wait %+v", w)
 	}
 
@@ -538,7 +564,7 @@ func TestMoveDefaultWait(t *testing.T) {
 	if got := lineOf(t, mv.Report, key); got.Result != ResKept || got.Detail != "this server's Pick rules already set a wait, so it stays" {
 		t.Fatalf("move on a set wait %+v", got)
 	}
-	if _, w = l.readWait(t, "4K"); w != mine {
+	if _, w = l.readWait(t, "4K"); !w.Same(mine) {
 		t.Fatalf("the move changed a set wait %+v", w)
 	}
 
@@ -548,7 +574,7 @@ func TestMoveDefaultWait(t *testing.T) {
 	if got := lineOf(t, l.move(t, Choices{}).Report, key); got.Result != ResSkipped {
 		t.Fatalf("movies off %+v", got)
 	}
-	if _, w = l.readWait(t, "4K"); w != seededWait {
+	if _, w = l.readWait(t, "4K"); !w.Same(seededWait) {
 		t.Fatalf("movies off changed the wait %+v", w)
 	}
 }

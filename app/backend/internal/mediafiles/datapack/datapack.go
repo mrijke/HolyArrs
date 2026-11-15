@@ -236,6 +236,7 @@ func (r PickRule) validate() error {
 	}
 	// Your own traits live on one install only; a data pack cannot carry them.
 	keys := append(append([]string{}, r.Rules.MustHave...), r.Rules.Never...)
+	keys = append(keys, r.Rules.Protocol.WaitUnless...)
 	for _, tp := range r.Rules.Traits {
 		keys = append(keys, tp.Trait)
 	}

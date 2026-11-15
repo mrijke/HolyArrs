@@ -245,7 +245,9 @@ func untouchedWait(p mediafiles.ProtocolRule) bool {
 	if p.Prefer == "" {
 		p.Prefer = "either"
 	}
-	return p == seededWait
+	// A list of what not to hold is not a wait of its own.
+	p.WaitUnless = nil
+	return p.Same(seededWait)
 }
 
 // protocol sets an old app's default wait on ready-made Pick rules, only
@@ -261,8 +263,10 @@ func (r *run) protocol(it Item) (string, string) {
 		return ResFailed, err.Error()
 	}
 	want := mediafiles.ProtocolRule{Prefer: pp.Prefer, WaitMinutesUsenet: pp.WaitUsenet, WaitMinutesTorrent: pp.WaitTorrent, SkipWaitAtGoodEnough: pp.SkipAtGoodEnough}
+	// A list of what not to hold is not a wait: it stays as the person set it.
+	want.WaitUnless = cur.Body.Protocol.WaitUnless
 	switch {
-	case cur.Body.Protocol == want:
+	case cur.Body.Protocol.Same(want):
 		return ResAlready, pp.Preset + " already waits this way"
 	case !untouchedWait(cur.Body.Protocol):
 		return ResKept, "this server's Pick rules already set a wait, so it stays"

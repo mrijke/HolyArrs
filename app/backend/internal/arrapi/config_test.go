@@ -4,9 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"slices"
 	"strings"
 	"testing"
 
+	"github.com/HolyArrs/holyarrs/app/backend/internal/core/database"
 	"github.com/HolyArrs/holyarrs/app/backend/internal/core/webserver"
 	"github.com/HolyArrs/holyarrs/app/backend/internal/mediafiles"
 )
@@ -28,12 +30,12 @@ func TestConfig_DelayProfile(t *testing.T) {
 		t.Fatalf("list: %v", l)
 	}
 	want := mediafiles.ProtocolRule{Prefer: "torrent", WaitMinutesTorrent: 600, WaitMinutesUsenet: 600}
-	if got := h.rules(id).Body.Protocol; got != want {
+	if got := h.rules(id).Body.Protocol; !got.Same(want) {
 		t.Fatalf("pushed rules: %+v", got)
 	}
 	st, out = h.do("radarr", "POST", "qualityprofile", radarrProfile(0, "Second", nil, nil))
 	id2 := int64(decodeObj(t, st, out, 201)["id"].(float64))
-	if got := h.rules(id2).Body.Protocol; got != want {
+	if got := h.rules(id2).Body.Protocol; !got.Same(want) {
 		t.Fatalf("rules pushed after: %+v", got)
 	}
 	// The other side keeps its own rule.
@@ -59,6 +61,35 @@ func TestConfig_DelayProfile(t *testing.T) {
 	}
 	if st, _ := h.do("radarr", "PUT", "delayprofile/77", rule); st != 404 {
 		t.Fatalf("missing: %d", st)
+	}
+}
+
+// A fold keeps what a person set: the wait-unless list is not a side's to
+// change, on a delay save and when a profile is sent again.
+func TestConfig_FoldKeepsWaitUnless(t *testing.T) {
+	h := newHookRig(t)
+	_, id := pushAll(t, h)
+	h.exec(`UPDATE pick_rules SET body = json_set(body, '$.protocol.wait_unless', json('["hevc"]')) WHERE id = ?`, id)
+	delay := `{"id":1,"enableUsenet":true,"enableTorrent":true,"preferredProtocol":"torrent","usenetDelay":600,"torrentDelay":600,
+		"bypassIfHighestQuality":false,"bypassIfAboveCustomFormatScore":false,"minimumCustomFormatScore":0,"order":2147483647,"tags":[]}`
+	if st, out := h.do("radarr", "PUT", "delayprofile/1", delay); st != 202 {
+		t.Fatalf("put delay: %d %s", st, out)
+	}
+	if got := h.rules(id).Body.Protocol; got.WaitMinutesUsenet != 600 || !slices.Equal(got.WaitUnless, []string{"hevc"}) {
+		t.Fatalf("a delay save dropped the wait-unless list: %+v", got)
+	}
+	st, out := h.do("radarr", "POST", "qualityprofile", radarrProfile(0, "Keep", nil, nil))
+	pid := int64(decodeObj(t, st, out, 201)["id"].(float64))
+	pushed, err := database.Select[mediafiles.PickRules](context.Background(), h.st.Read(), "pick_rules", "name = ?", "Keep")
+	if err != nil || len(pushed) != 1 {
+		t.Fatalf("pick rules for Keep: %v %v", pushed, err)
+	}
+	h.exec(`UPDATE pick_rules SET body = json_set(body, '$.protocol.wait_unless', json('["hevc"]')) WHERE id = ?`, pushed[0].ID)
+	if st, out := h.do("radarr", "PUT", fmt.Sprintf("qualityprofile/%d", pid), radarrProfile(pid, "Keep", nil, nil)); st != 202 {
+		t.Fatalf("put profile: %d %s", st, out)
+	}
+	if got := h.rules(pushed[0].ID).Body.Protocol.WaitUnless; !slices.Equal(got, []string{"hevc"}) {
+		t.Fatalf("a profile sent again dropped the list: %v", got)
 	}
 }
 

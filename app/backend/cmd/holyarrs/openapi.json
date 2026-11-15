@@ -4150,7 +4150,7 @@
       },
       "PickRulesBody": {
         "additionalProperties": true,
-        "description": "The rules: steps (quality, allowed) in ladder order, good_enough_at, traits (trait, points), must_have, never, min_points, good_enough_points, size_limits (by step or *: min, max, per_minute), protocol (prefer, wait_minutes_torrent, wait_minutes_usenet, skip_wait_at_good_enough), language (wanted, original_ok), order, upgrade_min_points, proper_policy (mode, max_age_days).",
+        "description": "The rules: steps (quality, allowed) in ladder order, good_enough_at, traits (trait, points), must_have, never, min_points, good_enough_points, size_limits (by step or *: min, max, per_minute), protocol (prefer, wait_minutes_torrent, wait_minutes_usenet, skip_wait_at_good_enough, wait_unless), language (wanted, original_ok), order, upgrade_min_points, proper_policy (mode, max_age_days).",
         "type": "object"
       },
       "PickRulesDetail": {
